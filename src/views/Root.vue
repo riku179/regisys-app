@@ -1,0 +1,57 @@
+<template>
+  <el-container>
+    <el-aside width="250px">
+      <el-menu :router="true" :default-active="activeLink">
+        <template v-for="rule in $router.options.routes[0].children" v-if="rule.meta">
+          <el-menu-item :index="rule.path" :key="rule.key">
+            <i :class="rule.meta.icon"></i>
+            <span class="menu-item">{{ rule.meta.title }}</span>
+          </el-menu-item>
+        </template>
+        <el-menu-item index="/logout">
+          <i class="el-icon-remove-outline"></i>
+          <span class="menu-item">Logout</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+    <el-main>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
+    </el-main>
+  </el-container>
+</template>
+
+<script>
+import _ from 'lodash'
+export default {
+  beforeCreated () {
+    let match = _.chain(this.$route.matched).sortBy(n => n.path.length).last().value()
+    console.log(this.$route.matched)
+    console.log(match)
+    this.activeLink = match.path
+  },
+
+  data () {
+    return {
+      activeLink: null
+    }
+  }
+}
+</script>
+
+<style>
+  h2 {
+    color: #7f7f7f;
+    font-weight: 300;
+    margin-top: auto;
+  }
+  h1 {
+    color: #7f7f7f;
+    font-weight: 300;
+    margin: auto;
+  }
+  span.menu-item {
+    color: #7f7f7f;
+  }
+</style>
