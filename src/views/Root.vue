@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="250px">
+    <el-aside width="150px">
       <el-menu :router="true" :default-active="activeLink">
         <template v-for="rule in $router.options.routes[0].children" v-if="rule.meta">
           <el-menu-item :index="rule.path" :key="rule.key">
