@@ -2,10 +2,10 @@
 </template>
 
 <script>
-import { removeToken } from '@/lib/auth'
+import { removeAuthData } from '@/lib/auth'
 export default {
   beforeMount () {
-    removeToken()
+    removeAuthData()
     this.$router.push('/login')
   }
 }

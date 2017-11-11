@@ -38,9 +38,8 @@ export default {
   methods: {
     async login (loginForm) {
       try {
-        let resp = await api.fetchToken(loginForm.username, loginForm.password)
-        let body = await resp.json()
-        lib.setToken(body.token)
+        let data = await api.fetchToken(loginForm.username, loginForm.password)
+        lib.setAuthData(data)
         this.$router.push('/home')
       } catch (e) {
         this.$message.error(e.message)
