@@ -4,7 +4,7 @@ import Login from '@/views/Login'
 import Logout from '@/views/Logout'
 import Root from '@/views/Root'
 import Home from '@/views/root/Home'
-import Goods from '@/views/root/Goods'
+import Items from '@/views/root/Items'
 import Orders from '@/views/root/Orders'
 
 Vue.use(Router)
@@ -25,7 +25,7 @@ export default new Router({
         },
         {
           path: '/goods',
-          component: Goods,
+          component: Items,
           meta: {
             title: 'Goods',
             icon: 'el-icon-goods'
@@ -50,7 +50,7 @@ export default new Router({
       component: Logout
     },
     {
-      path: '/',
+      path: '',
       redirect: '/home'
     }
   ]
