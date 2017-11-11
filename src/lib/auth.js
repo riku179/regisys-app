@@ -1,4 +1,5 @@
-const SESSION_STORAGE_KEY = 'regisys_api_key'
+const SESSION_STORAGE_JWT_KEY = 'regisys_api_key'
+const SESSION_STORAGE_USER_KEY = 'regisys_user_key'
 
 export function parseToken (rawToken) {
   if (!rawToken) return null
@@ -18,18 +19,28 @@ export function parseToken (rawToken) {
 }
 
 export function getToken () {
-  let rawToken = sessionStorage.getItem(SESSION_STORAGE_KEY)
+  let rawToken = sessionStorage.getItem(SESSION_STORAGE_JWT_KEY)
   return parseToken(rawToken)
 }
 
-export function getRawToken () {
-  return sessionStorage.getItem(SESSION_STORAGE_KEY)
+export function getAuthHeader () {
+  return { Authorization: 'JWT ' + getRawToken() }
 }
 
-export function setToken (rawToken) {
-  sessionStorage.setItem(SESSION_STORAGE_KEY, rawToken)
+function getRawToken () {
+  return sessionStorage.getItem(SESSION_STORAGE_JWT_KEY)
 }
 
-export function removeToken () {
-  sessionStorage.removeItem(SESSION_STORAGE_KEY)
+export function getUserData () {
+  return JSON.parse(sessionStorage.getItem(SESSION_STORAGE_USER_KEY))
+}
+
+export function setAuthData ({token, user}) {
+  sessionStorage.setItem(SESSION_STORAGE_JWT_KEY, token)
+  sessionStorage.setItem(SESSION_STORAGE_USER_KEY, JSON.stringify(user))
+}
+
+export function removeAuthData () {
+  sessionStorage.removeItem(SESSION_STORAGE_JWT_KEY)
+  sessionStorage.removeItem(SESSION_STORAGE_USER_KEY)
 }

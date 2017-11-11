@@ -19,7 +19,7 @@ router.beforeEach((to, from, next) => {
   } else if (token.isValid() && to.path === '/login') {
     next('/home')
   } else if (!token.isValid()) {
-    auth.removeToken()
+    auth.removeAuthData()
     next('/login')
   } else {
     next()
