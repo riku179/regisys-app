@@ -4,7 +4,9 @@ import Login from '@/views/Login'
 import Logout from '@/views/Logout'
 import Root from '@/views/Root'
 import Home from '@/views/root/Home'
-import Items from '@/views/root/Items'
+import ItemsList from '@/views/root/Items/List'
+import ItemsCreate from '@/views/root/Items/Create'
+import ItemsEdit from '@/views/root/Items/Edit'
 import Orders from '@/views/root/Orders'
 
 Vue.use(Router)
@@ -14,6 +16,7 @@ export default new Router({
     {
       path: '/',
       component: Root,
+      redirect: '/home',
       children: [
         {
           path: '/home',
@@ -24,12 +27,20 @@ export default new Router({
           }
         },
         {
-          path: '/goods',
-          component: Items,
+          path: '/items',
+          component: ItemsList,
           meta: {
-            title: 'Goods',
+            title: 'Items',
             icon: 'el-icon-goods'
           }
+        },
+        {
+          path: '/items/edit/:id',
+          component: ItemsEdit
+        },
+        {
+          path: '/items/create',
+          component: ItemsCreate
         },
         {
           path: '/orders',

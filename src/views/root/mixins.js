@@ -5,7 +5,7 @@ export let handleErrMixin = {
     handleErr (e) {
       if (!e.response || e.response.status >= 500) {
         this.$message.error(e.message)
-      } else {
+      } else if (e.response.data) {
         _.forEach(e.response.data, v => {
           this.$notify.error({
             title: e.response.statusText,

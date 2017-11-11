@@ -40,6 +40,28 @@ export async function fetchAllItems () {
   return resp.data
 }
 
+export async function fetchItem (id) {
+  let resp = await client.get(`items/${id}/`, {
+    headers: getAuthHeader()
+  })
+  return resp.data
+}
+
+export async function addItem (data) {
+  return client.post('items/', JSON.stringify(data), {
+    headers: getAuthHeader()
+  })
+}
+
+export async function updateItem (id, data) {
+  let resp = await client.put(`items/${id}/`, JSON.stringify(data), {
+    headers: getAuthHeader()
+  })
+  return resp.data
+}
+
 export async function deleteItem (id) {
-  return client.delete('items/' + id)
+  return client.delete(`items/${id}/`, {
+    headers: getAuthHeader()
+  })
 }

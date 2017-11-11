@@ -27,8 +27,6 @@ import _ from 'lodash'
 export default {
   beforeCreated () {
     let match = _.chain(this.$route.matched).sortBy(n => n.path.length).last().value()
-    console.log(this.$route.matched)
-    console.log(match)
     this.activeLink = match.path
   },
 
