@@ -28,7 +28,7 @@ let client = axios.create({
 
 export async function fetchMyItems () {
   let user = getUserData()
-  let resp = await client.get('items', {
+  let resp = await client.get('items/', {
     headers: getAuthHeader(),
     params: {
       owner: user.id
@@ -38,7 +38,7 @@ export async function fetchMyItems () {
 }
 
 export async function fetchAllItems () {
-  let resp = await client.get('items', {
+  let resp = await client.get('items/', {
     headers: getAuthHeader()
   })
   return resp.data
@@ -74,7 +74,7 @@ export async function deleteItem (id) {
 
 export async function fetchMyOrders () {
   let user = getUserData()
-  let resp = await client.get('orders', {
+  let resp = await client.get('orders/', {
     headers: getAuthHeader(),
     params: {
       item__owner: user.id
@@ -84,8 +84,23 @@ export async function fetchMyOrders () {
 }
 
 export async function fetchAllOrders () {
-  let resp = await client.get('orders', {
+  let resp = await client.get('orders/', {
     headers: getAuthHeader()
   })
   return resp.data
+}
+
+export async function fetchOrdersAggregation (from, to) {
+  let resp = await client.get('orders/aggregate/', {
+    headers: getAuthHeader(),
+    params: {
+      from: dateTimeToStr(from),
+      to: dateTimeToStr(to)
+    }
+  })
+  return resp.data
+}
+
+function dateTimeToStr (dt) {
+  return `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`
 }

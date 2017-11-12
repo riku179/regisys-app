@@ -8,6 +8,7 @@ import ItemsList from '@/views/root/Items/List'
 import ItemsCreate from '@/views/root/Items/Create'
 import ItemsEdit from '@/views/root/Items/Edit'
 import OrdersList from '@/views/root/Orders/List'
+import OrdersSales from '@/views/root/Orders/Sales'
 
 Vue.use(Router)
 
@@ -49,6 +50,10 @@ export default new Router({
             title: 'Orders',
             icon: 'el-icon-refresh'
           }
+        },
+        {
+          path: '/orders/sales',
+          component: OrdersSales
         }
       ]
     },

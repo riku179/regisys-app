@@ -1,16 +1,16 @@
 <template>
 <div class="context">
 
-  <h2>会計情報</h2>
+  <h2>会計履歴</h2>
 
   <div class="stick-right">
-    <el-button type="primary" size="mini">売上集計</el-button>
+    <el-button type="primary" @click="jumpSalesPage" size="mini">売上集計</el-button>
   </div>
 
   <el-tabs v-model="activeTab" @tab-click="handleTabClick">
 
-    <el-tab-pane label="自分の会計" name="mine">
-      <el-table :data="myOrders" size="mini" empty-text="データがありません">
+    <el-tab-pane label="自分の履歴" name="mine">
+      <el-table :data="myOrders" size="mini">
         <el-table-column prop="created_at" label="日付" min-width="70"></el-table-column>
         <el-table-column prop="item.name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
@@ -19,8 +19,8 @@
       </el-table>
     </el-tab-pane>
 
-    <el-tab-pane label="全ての会計" name="all">
-      <el-table :data="allOrders" size="mini" empty-text="データがありません">
+    <el-tab-pane label="全ての履歴" name="all">
+      <el-table :data="allOrders" size="mini">
         <el-table-column prop="created_at" label="日付" min-width="70"></el-table-column>
         <el-table-column prop="item.name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
@@ -61,6 +61,10 @@ export default {
       } else if (tab.name === 'all') {
         this.showAllOrders()
       }
+    },
+
+    jumpSalesPage () {
+      this.$router.push('/orders/sales')
     },
 
     async showMyOrders () {
