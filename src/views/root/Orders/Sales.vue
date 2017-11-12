@@ -12,9 +12,7 @@
     @change="fetchAggregations">
   </el-date-picker>
 
-  <el-button type="primary" @click="fetchAggregations">集計</el-button>
-
-  <el-table :data="results" size="mini">
+  <el-table :data="results">
     <el-table-column prop="username" label="ユーザー" min-width="50"></el-table-column>
     <el-table-column prop="sales" label="売上" min-width="50"></el-table-column>
   </el-table>
