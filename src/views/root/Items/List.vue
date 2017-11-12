@@ -5,15 +5,15 @@
 
   <div class="stick-right">
     <el-button-group>
-      <el-button type="primary" @click="jumpCreatePage" size="mini">新規出品</el-button>
-      <el-button type="primary" size="mini">値札発行</el-button>
+      <el-button type="primary" @click="jumpCreatePage">新規出品</el-button>
+      <el-button type="primary">値札発行</el-button>
     </el-button-group>
   </div>
 
   <el-tabs v-model="activeTab" @tab-click="handleTabClick">
     <el-tab-pane label="自分の商品" name="mine">
 
-      <el-table :data="myItems" size="mini" empty-text="データがありません">
+      <el-table :data="myItems" empty-text="データがありません">
         <el-table-column prop="name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
         <el-table-column prop="member_price" label="部員価格" min-width="50"></el-table-column>
@@ -30,7 +30,7 @@
     </el-tab-pane>
 
     <el-tab-pane label="全商品" name="all">
-      <el-table :data="allItems" size="mini" empty-text="データがありません">
+      <el-table :data="allItems" empty-text="データがありません">
         <el-table-column prop="name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
         <el-table-column prop="member_price" label="部員価格" min-width="50"></el-table-column>

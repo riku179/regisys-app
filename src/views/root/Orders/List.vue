@@ -4,13 +4,13 @@
   <h2>会計履歴</h2>
 
   <div class="stick-right">
-    <el-button type="primary" @click="jumpSalesPage" size="mini">売上集計</el-button>
+    <el-button type="primary" @click="jumpSalesPage">売上集計</el-button>
   </div>
 
   <el-tabs v-model="activeTab" @tab-click="handleTabClick">
 
     <el-tab-pane label="自分の履歴" name="mine">
-      <el-table :data="myOrders" size="mini">
+      <el-table :data="myOrders">
         <el-table-column prop="created_at" label="日付" min-width="70"></el-table-column>
         <el-table-column prop="item.name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
@@ -20,7 +20,7 @@
     </el-tab-pane>
 
     <el-tab-pane label="全ての履歴" name="all">
-      <el-table :data="allOrders" size="mini">
+      <el-table :data="allOrders">
         <el-table-column prop="created_at" label="日付" min-width="70"></el-table-column>
         <el-table-column prop="item.name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
@@ -104,7 +104,7 @@ export default {
 
 <style scoped>
   .stick-right {
-    width: 200px;
+    width: 100px;
     margin-left: auto;
   }
 </style>
