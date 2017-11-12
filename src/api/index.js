@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { getUserData, getAuthHeader } from '../lib/auth'
 
+// auth
+
 export async function fetchToken (username, passwd) {
   let res = await axios.post('/api/auth/token',
     JSON.stringify({
@@ -12,6 +14,8 @@ export async function fetchToken (username, passwd) {
   )
   return res.data
 }
+
+// item
 
 let client = axios.create({
   baseURL: '/api/',
@@ -64,4 +68,24 @@ export async function deleteItem (id) {
   return client.delete(`items/${id}/`, {
     headers: getAuthHeader()
   })
+}
+
+// order
+
+export async function fetchMyOrders () {
+  let user = getUserData()
+  let resp = await client.get('orders', {
+    headers: getAuthHeader(),
+    params: {
+      item__owner: user.id
+    }
+  })
+  return resp.data
+}
+
+export async function fetchAllOrders () {
+  let resp = await client.get('orders', {
+    headers: getAuthHeader()
+  })
+  return resp.data
 }

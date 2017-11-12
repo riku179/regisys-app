@@ -7,7 +7,7 @@ import Home from '@/views/root/Home'
 import ItemsList from '@/views/root/Items/List'
 import ItemsCreate from '@/views/root/Items/Create'
 import ItemsEdit from '@/views/root/Items/Edit'
-import Orders from '@/views/root/Orders'
+import OrdersList from '@/views/root/Orders/List'
 
 Vue.use(Router)
 
@@ -44,7 +44,7 @@ export default new Router({
         },
         {
           path: '/orders',
-          component: Orders,
+          component: OrdersList,
           meta: {
             title: 'Orders',
             icon: 'el-icon-refresh'
