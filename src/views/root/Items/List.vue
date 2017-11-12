@@ -77,9 +77,13 @@ export default {
 
     async handleDelete (row) {
       try {
-        await this.$confirm(`この商品を本当に削除しますか？<br><b>${this.escape_html(row.name)}</b><br>この操作は取り消すことができません。`, '警告', {
+        const h = this.$createElement
+        await this.$confirm(h('div', null, [
+          h('p', null, 'この商品を本当に削除しますか？'),
+          h('p', {style: 'font-weight: bold'}, row.name),
+          h('p', null, 'この操作は取り消すことができません。')
+        ]), '警告', {
           type: 'error',
-          dangerouslyUseHTMLString: true,
           confirmButtonText: '削除',
           confirmButtonClass: 'el-button--danger',
           cancelButtonText: 'キャンセル'
@@ -92,7 +96,9 @@ export default {
           this.$message.error('商品は削除できませんでした')
           this.handleErr(e)
         }
-      } catch (e) {}
+      } catch (e) {
+        // 商品の削除をキャンセル
+      }
     },
 
     jumpCreatePage () {
@@ -104,22 +110,6 @@ export default {
     },
     async showAllItems () {
       this.allItems = await fetchAllItems()
-    },
-
-    escape_html (data) {
-      if (typeof data !== 'string') {
-        return data
-      }
-      return data.replace(/[&'`"<>]/g, (match) => {
-        return {
-          '&': '&amp;',
-          "'": '&#x27;',
-          '`': '&#x60;',
-          '"': '&quot;',
-          '<': '&lt;',
-          '>': '&gt;'
-        }[match]
-      })
     }
   }
 }
