@@ -13,7 +13,7 @@
   <el-tabs v-model="activeTab" @tab-click="handleTabClick">
     <el-tab-pane label="自分の商品" name="mine">
 
-      <el-table :data="myItems" empty-text="データがありません">
+      <el-table :data="myItems">
         <el-table-column prop="name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
         <el-table-column prop="member_price" label="部員価格" min-width="50"></el-table-column>
@@ -30,7 +30,7 @@
     </el-tab-pane>
 
     <el-tab-pane label="全商品" name="all">
-      <el-table :data="allItems" empty-text="データがありません">
+      <el-table :data="allItems">
         <el-table-column prop="name" label="商品名" min-width="150"></el-table-column>
         <el-table-column prop="price" label="価格" min-width="30"></el-table-column>
         <el-table-column prop="member_price" label="部員価格" min-width="50"></el-table-column>
