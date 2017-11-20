@@ -6,7 +6,7 @@
   <div class="stick-right">
     <el-button-group>
       <el-button type="primary" @click="jumpCreatePage">新規出品</el-button>
-      <el-button type="primary">値札発行</el-button>
+      <el-button type="primary" @click="openTagsTab">値札発行</el-button>
     </el-button-group>
   </div>
 
@@ -103,6 +103,10 @@ export default {
 
     jumpCreatePage () {
       this.$router.push('/items/create')
+    },
+
+    openTagsTab () {
+      window.open('/#/tags')
     },
 
     async showMyItems () {
