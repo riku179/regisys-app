@@ -2,7 +2,9 @@
   <div id="app">
     <el-container>
       <el-header>Regisys</el-header>
-    <router-view/>
+      <transition name="el-fade-in-linear">
+        <router-view></router-view>
+      </transition>
     </el-container>
   </div>
 </template>
