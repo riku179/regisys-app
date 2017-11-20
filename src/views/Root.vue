@@ -2,7 +2,7 @@
   <el-container>
     <el-aside width="150px">
       <el-menu :router="true" :default-active="activeLink">
-        <template v-for="rule in $router.options.routes[0].children" v-if="rule.meta">
+        <template v-for="rule in $router.options.routes[0].children" v-if="rule.meta && (!rule.meta.staff_only || user.is_staff)">
           <el-menu-item :index="rule.path" :key="rule.key">
             <i :class="rule.meta.icon"></i>
             <span class="menu-item">{{ rule.meta.title }}</span>
@@ -24,6 +24,7 @@
 
 <script>
 import _ from 'lodash'
+import { getUserData } from '@/lib/auth'
 export default {
   beforeCreated () {
     let match = _.chain(this.$route.matched).sortBy(n => n.path.length).last().value()
@@ -32,7 +33,8 @@ export default {
 
   data () {
     return {
-      activeLink: null
+      activeLink: null,
+      user: getUserData()
     }
   }
 }
