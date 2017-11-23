@@ -3,11 +3,10 @@
 
     <h2>レジ</h2>
 
-    <el-alert title="部員価格が適用されています" type="warning" :closable="false" center show-icon style="margin-bottom: 20px" v-if="is_member"></el-alert>
-    <el-alert title="通常価格が適用されています" type="info" :closable="false" center show-icon style="margin-bottom: 20px" v-else></el-alert>
 
     <el-row type="flex" justify="center">
       <el-col :span="12">
+        <el-switch v-model="is_member" active-text="部員価格" inactive-text="通常価格" style="margin-bottom: 20px"></el-switch>
         <el-input id="barcode-input" v-model="rawCode" @keyup.enter.native="getItem" placeholder="バーコードを読み取って下さい" :disabled="checkState"></el-input>
       </el-col>
     </el-row>
@@ -33,6 +32,7 @@
     <p class="price-sum">合計: ￥ {{ sum }}</p>
 
     <el-button type="primary" @click="checkState = true" style="margin-top: 20px" v-if="!checkState">確認する</el-button>
+    <el-button @click="cart = []" style="margin-top: 20px" v-if="!checkState">カートを空にする</el-button>
     <template v-else>
       <p>もう一度カートの内容と実際の商品をチェックしてください</p>
       <el-button type="warning" @click="execOrder" style="margin-top: 20px">会計する</el-button>
@@ -62,19 +62,6 @@ export default {
     sum () {
       let sumItem = (sum, item) => sum + (this.is_member ? item.member_price : item.price) * item.quantity
       return _.reduce(this.cart, sumItem, 0)
-    }
-  },
-
-  async created () {
-    try {
-      await this.$confirm('購入者はMMA部員ですか？', '確認', {
-        confirmButtonText: 'はい',
-        cancelButtonText: 'いいえ',
-        type: 'warning'
-      })
-      this.is_member = true
-    } catch (e) {
-      this.is_member = false
     }
   },
 
