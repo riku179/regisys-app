@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const SESSION_STORAGE_JWT_KEY = 'regisys_api_key'
 const SESSION_STORAGE_USER_KEY = 'regisys_user_key'
 
@@ -23,10 +25,6 @@ export function getToken () {
   return parseToken(rawToken)
 }
 
-export function getAuthHeader () {
-  return { Authorization: 'JWT ' + getRawToken() }
-}
-
 function getRawToken () {
   return sessionStorage.getItem(SESSION_STORAGE_JWT_KEY)
 }
@@ -43,4 +41,8 @@ export function setAuthData ({token, user}) {
 export function removeAuthData () {
   sessionStorage.removeItem(SESSION_STORAGE_JWT_KEY)
   sessionStorage.removeItem(SESSION_STORAGE_USER_KEY)
+}
+
+export function setTokenIntoApiClient () {
+  axios.defaults.headers['Authorization'] = 'JWT ' + getRawToken()
 }

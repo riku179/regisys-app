@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getUserData, getAuthHeader } from '../lib/auth'
+import { getUserData } from '../lib/auth'
 
 // auth
 
@@ -15,8 +15,6 @@ export async function fetchToken (username, passwd) {
   return res.data
 }
 
-// item
-
 let client = axios.create({
   baseURL: '/api/',
   timeout: 1000,
@@ -26,10 +24,11 @@ let client = axios.create({
   }
 })
 
+// item
+
 export async function fetchMyItems () {
   let user = getUserData()
   let resp = await client.get('items/', {
-    headers: getAuthHeader(),
     params: {
       owner: user.id
     }
@@ -38,36 +37,26 @@ export async function fetchMyItems () {
 }
 
 export async function fetchAllItems () {
-  let resp = await client.get('items/', {
-    headers: getAuthHeader()
-  })
+  let resp = await client.get('items/')
   return resp.data
 }
 
 export async function fetchItem (id) {
-  let resp = await client.get(`items/${id}/`, {
-    headers: getAuthHeader()
-  })
+  let resp = await client.get(`items/${id}/`)
   return resp.data
 }
 
 export async function addItem (data) {
-  return client.post('items/', JSON.stringify(data), {
-    headers: getAuthHeader()
-  })
+  return client.post('items/', JSON.stringify(data))
 }
 
 export async function updateItem (id, data) {
-  let resp = await client.put(`items/${id}/`, JSON.stringify(data), {
-    headers: getAuthHeader()
-  })
+  let resp = await client.put(`items/${id}/`, JSON.stringify(data))
   return resp.data
 }
 
 export async function deleteItem (id) {
-  return client.delete(`items/${id}/`, {
-    headers: getAuthHeader()
-  })
+  return client.delete(`items/${id}/`)
 }
 
 // order
@@ -75,7 +64,6 @@ export async function deleteItem (id) {
 export async function fetchMyOrders () {
   let user = getUserData()
   let resp = await client.get('orders/', {
-    headers: getAuthHeader(),
     params: {
       item__owner: user.id
     }
@@ -84,15 +72,12 @@ export async function fetchMyOrders () {
 }
 
 export async function fetchAllOrders () {
-  let resp = await client.get('orders/', {
-    headers: getAuthHeader()
-  })
+  let resp = await client.get('orders/')
   return resp.data
 }
 
 export async function fetchOrdersAggregation (from, to) {
   let resp = await client.get('orders/aggregate/', {
-    headers: getAuthHeader(),
     params: {
       from: dateTimeToStr(from),
       to: dateTimeToStr(to)
@@ -100,6 +85,13 @@ export async function fetchOrdersAggregation (from, to) {
   })
   return resp.data
 }
+
+export async function pushOrder (orderData) {
+  let resp = await client.post('orders/', JSON.stringify(orderData))
+  return resp.data
+}
+
+// helper func
 
 function dateTimeToStr (dt) {
   return `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`

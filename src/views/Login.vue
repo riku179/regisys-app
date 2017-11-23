@@ -40,6 +40,7 @@ export default {
       try {
         let data = await api.fetchToken(loginForm.username, loginForm.password)
         lib.setAuthData(data)
+        lib.setTokenIntoApiClient()
         this.$router.push('/home')
       } catch (e) {
         this.$message.error(e.message)

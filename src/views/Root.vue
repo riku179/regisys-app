@@ -24,11 +24,15 @@
 
 <script>
 import _ from 'lodash'
-import { getUserData } from '@/lib/auth'
+import { getUserData, setTokenIntoApiClient } from '@/lib/auth'
 export default {
   beforeCreated () {
     let match = _.chain(this.$route.matched).sortBy(n => n.path.length).last().value()
     this.activeLink = match.path
+  },
+
+  created () {
+    setTokenIntoApiClient()
   },
 
   data () {
