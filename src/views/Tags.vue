@@ -19,6 +19,7 @@
 <script>
 import { fetchMyItems } from '@/api'
 import barcode from '@/components/Barcode'
+import { setTokenIntoApiClient } from '@/lib/auth'
 
 export default {
   components: {
@@ -32,6 +33,7 @@ export default {
   },
 
   async created () {
+    setTokenIntoApiClient()
     let rawItems = await fetchMyItems()
     // 数量分だけitemを増やす(数量３の商品の値札は３つ欲しい)
     rawItems.forEach(item => {
