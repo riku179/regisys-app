@@ -17,7 +17,7 @@ export async function fetchToken (username, passwd) {
 
 let client = axios.create({
   baseURL: '/api/',
-  timeout: 1000,
+  timeout: 5000,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
