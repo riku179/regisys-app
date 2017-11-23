@@ -87,7 +87,7 @@ export default {
           .map(this.calcSales)
           .map(this.convertDatetime).value()
       } catch (e) {
-        this.handleErr(e)
+        this.$message.error(e.toLocaleString())
       }
     },
 
