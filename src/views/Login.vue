@@ -43,7 +43,7 @@ export default {
         lib.setTokenIntoApiClient()
         this.$router.push('/home')
       } catch (e) {
-        if (e.status === 400) {
+        if (e.response.status === 400) {
           this.$message.error('ユーザー名またはパスワードが不正です')
         } else {
           this.$message.error(e.message)
