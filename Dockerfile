@@ -16,5 +16,5 @@ ENV API_PORT 4444
 COPY --from=build-env /root/dist/ /var/html/
 COPY nginx.conf /etc/nginx/
 COPY entrypoint.sh /root
-CMD ["/root/entrypoint.sh"]
+CMD ["nginx"]
 
