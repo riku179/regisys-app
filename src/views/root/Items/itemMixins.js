@@ -19,7 +19,10 @@ export let formMixin = {
         quantity: '数量'
       },
       validationRules: {
-        name: { required: true, message: '必須項目です', trigger: 'blur' },
+        name: [
+          { required: true, message: '必須項目です', trigger: 'blur' },
+          { min: 1, max: 30, message: '長すぎます', trigger: 'blur' }
+        ],
         price: [
           { type: 'integer', min: 0, required: true, message: '有効な値を入力してください', trigger: 'blur' }
         ],
