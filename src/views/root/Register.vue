@@ -3,10 +3,11 @@
 
     <h2>レジ</h2>
 
+    <el-alert title="部員価格が適用されています" type="warning" :closable="false" center show-icon style="margin-bottom: 10px" v-if="is_member"></el-alert>
+
     <el-row type="flex" justify="center">
       <el-col :span="12">
-        <el-input v-model="rawCode" placeholder="バーコードを読み取って下さい"></el-input>
-        <el-button @click="getItem">カートに入れる</el-button>
+        <el-input id="barcode-input" v-model="rawCode" @keyup.enter.native="getItem" placeholder="バーコードを読み取って下さい"></el-input>
       </el-col>
     </el-row>
 
@@ -31,6 +32,19 @@ export default {
     }
   },
 
+  async created () {
+    try {
+      await this.$confirm('購入者はMMA部員ですか？', '確認', {
+        confirmButtonText: 'はい',
+        cancelButtonText: 'いいえ',
+        type: 'warning'
+      })
+      this.is_member = true
+    } catch (e) {
+      this.is_member = false
+    }
+  },
+
   methods: {
     async getItem () {
       try {
@@ -38,6 +52,9 @@ export default {
         this.cart.push(data)
       } catch (e) {
         this.$message.error('商品が存在しません')
+      } finally {
+        this.rawCode = ''
+        this.$el.querySelector('#barcode-input').focus()
       }
     }
   }
