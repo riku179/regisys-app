@@ -6,7 +6,6 @@
         </tr>
         <tr><b>{{ item.name }}</b></tr>
         <tr>価格: {{ item.price }}円</tr>
-        <tr>(部員: {{ item.member_price }}円)</tr>
         <tr>出品者: {{ item.owner.username }}</tr>
         <tr>
           <barcode :value="item.id"></barcode>
