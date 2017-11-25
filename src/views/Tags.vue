@@ -1,16 +1,21 @@
 <template>
   <div class="context">
-      <table class="tag" border v-for="item in items" :key="item.id">
-        <tr>
-          <img class="logo" src="../assets/mma_logo.svg" height="70px" />
-        </tr>
-        <tr><b>{{ item.name }}</b></tr>
-        <tr>価格: {{ item.price }}円</tr>
-        <tr>出品者: {{ item.owner.username }}</tr>
-        <tr>
-          <barcode :value="item.id"></barcode>
-        </tr>
-      </table>
+      <template v-if="items.length > 0">
+        <table class="tag" border v-for="item in items" :key="item.id">
+          <tr>
+            <img class="logo" src="../assets/mma_logo.svg" height="70px" />
+          </tr>
+          <tr><b>{{ item.name }}</b></tr>
+          <tr>価格: {{ item.price }}円</tr>
+          <tr>出品者: {{ item.owner.username }}</tr>
+          <tr>
+            <barcode :value="item.id"></barcode>
+          </tr>
+        </table>
+      </template>
+      <template v-else>
+        <p>商品が見つかりません</p>
+      </template>
     </div>
   </div>
 </template>
