@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { fetchMyItems, fetchAllItems } from '@/api'
 import barcode from '@/components/Barcode'
 import { setTokenIntoApiClient } from '@/lib/auth'
@@ -33,20 +34,35 @@ export default {
 
   async created () {
     setTokenIntoApiClient()
-    let rawItems
-    console.log(this.$route.query.all)
-    if (this.$route.query.all) {
-      rawItems = await fetchAllItems()
+
+    let items
+    let owner = this.$route.query.owner
+    let unsoldOnly = this.$route.query.unsold_only !== 'false'
+
+    if (!owner) {
+      items = await fetchMyItems()
+    } else if (owner === 'all') {
+      items = await fetchAllItems()
     } else {
-      rawItems = await fetchMyItems()
+      items = _.filter(await fetchAllItems(), item => item.owner.username === owner)
     }
+
     // 数量分だけitemを増やす(数量３の商品の値札は３つ欲しい)
-    rawItems.forEach(item => {
-      for (let i = 0; i < item.quantity; i++) {
-        this.items.push(item)
-      }
-    })
-    console.log(this.items.map(item => item.id))
+    if (unsoldOnly) {
+      // 売れているものは表示しない
+      items.forEach(item => {
+        for (let i = 0; i < item.quantity - item.orders.length; i++) {
+          this.items.push(item)
+        }
+      })
+    } else {
+      // 売れていようがいまいが全部表示
+      items.forEach(item => {
+        for (let i = 0; i < item.quantity; i++) {
+          this.items.push(item)
+        }
+      })
+    }
   }
 }
 </script>
